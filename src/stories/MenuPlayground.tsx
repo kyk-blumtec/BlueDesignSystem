@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { getMenuFigmaEntry } from '../config/menuFigmaMap'
 import type { MenuPlaygroundArgs } from './getDesignSpecs'
 
@@ -171,7 +171,7 @@ const visualizeProperty = (item: LayerProperty): ReactNode => {
         <div
           style={{
             width: '100%',
-            height: 34,
+            height: 36,
             borderRadius: 8,
             border: '1px solid #cbd5e1',
             background: item.value,
@@ -188,7 +188,7 @@ const visualizeProperty = (item: LayerProperty): ReactNode => {
       <div
         style={{
           width: '100%',
-          height: 34,
+          height: 36,
           borderRadius: radius,
           border: '1px solid #cbd5e1',
           background: '#f8fafc',
@@ -206,7 +206,7 @@ const visualizeProperty = (item: LayerProperty): ReactNode => {
           color: '#0f172a',
         }}
       >
-        Aa 샘플 텍스트
+        Aa Sample Text
       </div>
     )
   }
@@ -244,10 +244,23 @@ const visualizeProperty = (item: LayerProperty): ReactNode => {
   )
 }
 
+const buildPreviewStyle = (layer: LayerModel): CSSProperties => {
+  const style: CSSProperties = {
+    fontFamily: 'var(--font-family-base)',
+    lineHeight: 'var(--line-height-normal)',
+    border: 'none',
+  }
+  layer.properties.forEach((item) => {
+    const key = item.cssProperty
+      .replace(/-([a-z])/g, (_, char: string) => char.toUpperCase())
+      .replace(/^\w/, (char) => char.toLowerCase()) as keyof CSSProperties
+    ;(style as Record<string, string>)[key] = item.value
+  })
+  return style
+}
+
 const MenuPlayground = ({ menuKey, title, description, ...args }: MenuPlaygroundProps) => {
   const entry = getMenuFigmaEntry(menuKey)
-  const [activeLayerId, setActiveLayerId] = useState<string>('')
-  const [scriptTab, setScriptTab] = useState<'json' | 'css'>('json')
   const [copyLabel, setCopyLabel] = useState('Copy')
 
   const layers = useMemo<LayerModel[]>(() => {
@@ -261,23 +274,10 @@ const MenuPlayground = ({ menuKey, title, description, ...args }: MenuPlayground
     }))
   }, [entry, menuKey, args])
 
-  const activeLayer = useMemo(() => {
-    if (layers.length === 0) return null
-    const found = layers.find((layer) => layer.id === activeLayerId)
-    return found ?? layers[0]
-  }, [layers, activeLayerId])
-
-  const script = useMemo(() => {
-    if (!activeLayer) return 'No layer selected'
-    return scriptTab === 'json'
-      ? toLayerJson(menuKey, title, activeLayer)
-      : toLayerCss(menuKey, activeLayer)
-  }, [activeLayer, menuKey, title, scriptTab])
-
-  const copyScript = async () => {
+  const copyText = async (value: string, key: string) => {
     try {
-      await navigator.clipboard.writeText(script)
-      setCopyLabel('Copied')
+      await navigator.clipboard.writeText(value)
+      setCopyLabel(key)
       setTimeout(() => setCopyLabel('Copy'), 1000)
     } catch {
       setCopyLabel('Failed')
@@ -291,223 +291,199 @@ const MenuPlayground = ({ menuKey, title, description, ...args }: MenuPlayground
         <h2 style={{ margin: '0 0 4px', fontSize: 22 }}>{title}</h2>
         <div style={{ fontSize: 12, color: '#64748b', marginBottom: 8 }}>{menuKey}</div>
         <p style={{ margin: 0, color: '#334155', fontSize: 14 }}>
-          {description ?? 'Layer based properties with variable/token and JSON/CSS conversion'}
+          {description ??
+            'Each layer provides visualized design elements, property-variable-token-value mapping, and JSON/CSS converters.'}
         </p>
       </section>
 
       <section style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 14, padding: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 10 }}>
-          1) Figma Layer Properties
+          Layer Properties And Conversion
         </div>
         {layers.length === 0 && (
           <div style={{ fontSize: 12, color: '#64748b' }}>No Figma path/layers for this menu.</div>
         )}
-        {layers.length > 0 && (
-          <div style={{ display: 'grid', gap: 10 }}>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              {layers.map((layer) => (
-                <button
-                  key={layer.id}
-                  type="button"
-                  onClick={() => setActiveLayerId(layer.id)}
-                  style={{
-                    border: '1px solid #cbd5e1',
-                    borderRadius: 999,
-                    padding: '4px 10px',
-                    background: activeLayer?.id === layer.id ? '#e2e8f0' : '#fff',
-                    fontSize: 12,
-                    cursor: 'pointer',
-                  }}
-                >
-                  {layer.label}
-                </button>
-              ))}
-            </div>
-
-            {activeLayer && (
-              <div style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gap: 14 }}>
+          {layers.map((layer) => {
+            const jsonScript = toLayerJson(menuKey, title, layer)
+            const cssScript = toLayerCss(menuKey, layer)
+            return (
+              <article
+                key={layer.id}
+                style={{ border: '1px solid #e2e8f0', borderRadius: 12, overflow: 'hidden', background: '#fff' }}
+              >
                 <div
                   style={{
-                    padding: '8px 10px',
+                    padding: '10px 12px',
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     background: '#f8fafc',
                     borderBottom: '1px solid #e2e8f0',
+                    gap: 10,
+                    flexWrap: 'wrap',
                   }}
                 >
-                  <strong style={{ fontSize: 13 }}>{activeLayer.label}</strong>
-                  <a href={activeLayer.url} target="_blank" rel="noreferrer" style={{ fontSize: 12 }}>
+                  <strong style={{ fontSize: 13 }}>{layer.label}</strong>
+                  <a href={layer.url} target="_blank" rel="noreferrer" style={{ fontSize: 12 }}>
                     Open Figma
                   </a>
                 </div>
-                <div style={{ overflowX: 'auto' }}>
-                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
-                    <thead>
-                      <tr style={{ background: '#fff' }}>
-                        <th style={{ textAlign: 'left', padding: 10, borderBottom: '1px solid #e2e8f0' }}>
-                          Property
-                        </th>
-                        <th style={{ textAlign: 'left', padding: 10, borderBottom: '1px solid #e2e8f0' }}>
-                          Variable
-                        </th>
-                        <th style={{ textAlign: 'left', padding: 10, borderBottom: '1px solid #e2e8f0' }}>
-                          Token
-                        </th>
-                        <th style={{ textAlign: 'left', padding: 10, borderBottom: '1px solid #e2e8f0' }}>
-                          Value
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {activeLayer.properties.map((item) => (
-                        <tr key={`${activeLayer.id}-${item.property}`}>
-                          <td style={{ padding: 10, borderBottom: '1px solid #f1f5f9' }}>{item.property}</td>
-                          <td style={{ padding: 10, borderBottom: '1px solid #f1f5f9', color: '#475569' }}>
-                            {item.variable}
-                          </td>
-                          <td style={{ padding: 10, borderBottom: '1px solid #f1f5f9', color: '#475569' }}>
-                            {item.token}
-                          </td>
-                          <td style={{ padding: 10, borderBottom: '1px solid #f1f5f9', color: '#0f172a' }}>
-                            {item.value}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div
-                  style={{
-                    borderTop: '1px solid #e2e8f0',
-                    background: '#ffffff',
-                    padding: 10,
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
-                    gap: 8,
-                  }}
-                >
-                  {activeLayer.properties.map((item) => (
+
+                <div style={{ padding: 12, display: 'grid', gap: 12 }}>
+                  <div
+                    style={{
+                      border: '1px solid #e2e8f0',
+                      borderRadius: 10,
+                      background: '#f8fafc',
+                      padding: 12,
+                      display: 'grid',
+                      gap: 8,
+                    }}
+                  >
+                    <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a' }}>
+                      Figma Element Visualization
+                    </div>
+                    <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+                      <button type="button" style={buildPreviewStyle(layer)}>
+                        {layer.label}
+                      </button>
+                      <div style={{ fontSize: 12, color: '#475569' }}>
+                        Live element preview generated from layer properties.
+                      </div>
+                    </div>
                     <div
-                      key={`visual-${activeLayer.id}-${item.property}`}
                       style={{
-                        border: '1px solid #e2e8f0',
-                        borderRadius: 8,
-                        padding: 8,
-                        background: '#f8fafc',
                         display: 'grid',
-                        gap: 6,
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
+                        gap: 8,
                       }}
                     >
-                      <div style={{ fontSize: 11, color: '#64748b' }}>{item.property}</div>
-                      {visualizeProperty(item)}
+                      {layer.properties.map((item) => (
+                        <div
+                          key={`visual-${layer.id}-${item.property}`}
+                          style={{
+                            border: '1px solid #e2e8f0',
+                            borderRadius: 8,
+                            padding: 8,
+                            background: '#fff',
+                            display: 'grid',
+                            gap: 6,
+                          }}
+                        >
+                          <div style={{ fontSize: 11, color: '#64748b' }}>{item.property}</div>
+                          {visualizeProperty(item)}
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
+
+                  <div style={{ overflowX: 'auto', border: '1px solid #e2e8f0', borderRadius: 10 }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
+                      <thead>
+                        <tr style={{ background: '#fff' }}>
+                          <th style={{ textAlign: 'left', padding: 10, borderBottom: '1px solid #e2e8f0' }}>
+                            Property
+                          </th>
+                          <th style={{ textAlign: 'left', padding: 10, borderBottom: '1px solid #e2e8f0' }}>
+                            Variable
+                          </th>
+                          <th style={{ textAlign: 'left', padding: 10, borderBottom: '1px solid #e2e8f0' }}>
+                            Token
+                          </th>
+                          <th style={{ textAlign: 'left', padding: 10, borderBottom: '1px solid #e2e8f0' }}>
+                            Value
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {layer.properties.map((item) => (
+                          <tr key={`${layer.id}-${item.property}`}>
+                            <td style={{ padding: 10, borderBottom: '1px solid #f1f5f9' }}>{item.property}</td>
+                            <td style={{ padding: 10, borderBottom: '1px solid #f1f5f9', color: '#475569' }}>
+                              {item.variable}
+                            </td>
+                            <td style={{ padding: 10, borderBottom: '1px solid #f1f5f9', color: '#475569' }}>
+                              {item.token}
+                            </td>
+                            <td style={{ padding: 10, borderBottom: '1px solid #f1f5f9', color: '#0f172a' }}>
+                              {item.value}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div style={{ display: 'grid', gap: 8 }}>
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                      <button
+                        type="button"
+                        onClick={() => copyText(jsonScript, `JSON copied (${layer.label})`)}
+                        style={{
+                          border: '1px solid #cbd5e1',
+                          borderRadius: 8,
+                          padding: '5px 10px',
+                          background: '#fff',
+                          fontSize: 12,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        JSON Convert
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => copyText(cssScript, `CSS copied (${layer.label})`)}
+                        style={{
+                          border: '1px solid #cbd5e1',
+                          borderRadius: 8,
+                          padding: '5px 10px',
+                          background: '#fff',
+                          fontSize: 12,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        CSS Convert
+                      </button>
+                      <span style={{ fontSize: 12, color: '#475569', alignSelf: 'center' }}>{copyLabel}</span>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                      <textarea
+                        readOnly
+                        value={jsonScript}
+                        style={{
+                          width: '100%',
+                          minHeight: 150,
+                          fontSize: 11,
+                          fontFamily:
+                            'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace',
+                          border: '1px solid #e2e8f0',
+                          borderRadius: 8,
+                          padding: 8,
+                          background: '#f8fafc',
+                        }}
+                      />
+                      <textarea
+                        readOnly
+                        value={cssScript}
+                        style={{
+                          width: '100%',
+                          minHeight: 150,
+                          fontSize: 11,
+                          fontFamily:
+                            'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace',
+                          border: '1px solid #e2e8f0',
+                          borderRadius: 8,
+                          padding: 8,
+                          background: '#f8fafc',
+                        }}
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        )}
-      </section>
-
-      <section style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 14, padding: 16 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <div style={{ fontSize: 14, fontWeight: 700 }}>
-            2) JSON / CSS Conversion ({activeLayer?.label ?? 'No Layer'})
-          </div>
-          <button
-            type="button"
-            onClick={copyScript}
-            style={{
-              border: '1px solid #cbd5e1',
-              borderRadius: 8,
-              padding: '6px 10px',
-              background: '#fff',
-              fontSize: 12,
-              cursor: 'pointer',
-            }}
-          >
-            {copyLabel}
-          </button>
-        </div>
-        <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-          <button
-            type="button"
-            onClick={() => setScriptTab('json')}
-            style={{
-              border: '1px solid #cbd5e1',
-              borderRadius: 8,
-              padding: '4px 10px',
-              background: scriptTab === 'json' ? '#e2e8f0' : '#fff',
-              fontSize: 12,
-              cursor: 'pointer',
-            }}
-          >
-            JSON
-          </button>
-          <button
-            type="button"
-            onClick={() => setScriptTab('css')}
-            style={{
-              border: '1px solid #cbd5e1',
-              borderRadius: 8,
-              padding: '4px 10px',
-              background: scriptTab === 'css' ? '#e2e8f0' : '#fff',
-              fontSize: 12,
-              cursor: 'pointer',
-            }}
-          >
-            CSS
-          </button>
-        </div>
-        <textarea
-          readOnly
-          value={script}
-          style={{
-            width: '100%',
-            minHeight: 240,
-            fontSize: 12,
-            fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-            border: '1px solid #e2e8f0',
-            borderRadius: 10,
-            padding: 10,
-            background: '#f8fafc',
-          }}
-        />
-      </section>
-
-      <section style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 14, padding: 16 }}>
-        <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 10 }}>3) Figma Layer Preview</div>
-        <div style={{ display: 'grid', gap: 12 }}>
-          {layers.length === 0 && (
-            <div style={{ fontSize: 12, color: '#64748b' }}>No preview links available.</div>
-          )}
-          {layers.map((layer) => (
-            <div
-              key={`preview-${layer.id}`}
-              style={{ border: '1px solid #e2e8f0', borderRadius: 10, overflow: 'hidden' }}
-            >
-              <div
-                style={{
-                  padding: '8px 10px',
-                  fontSize: 12,
-                  fontWeight: 700,
-                  borderBottom: '1px solid #e2e8f0',
-                  background: '#f8fafc',
-                }}
-              >
-                {layer.label}
-              </div>
-              <div style={{ position: 'relative', width: '100%', paddingTop: '50%' }}>
-                <iframe
-                  title={`${menuKey}-${layer.label}`}
-                  src={`https://www.figma.com/embed?embed_host=storybook&url=${encodeURIComponent(layer.url)}`}
-                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
-                  allowFullScreen
-                />
-              </div>
-            </div>
-          ))}
+              </article>
+            )
+          })}
         </div>
       </section>
     </div>
