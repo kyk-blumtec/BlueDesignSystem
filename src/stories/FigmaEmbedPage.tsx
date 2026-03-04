@@ -52,7 +52,6 @@ const FigmaEmbedPage = ({
   <FigmaEmbedLayout
     title={title}
     description={description}
-    figmaUrl={figmaUrl}
     cards={cards}
     tokens={tokens}
     figmaFrames={figmaFrames}
