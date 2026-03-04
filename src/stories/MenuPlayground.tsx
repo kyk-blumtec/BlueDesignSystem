@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import type { ReactNode } from 'react'
 import { getMenuFigmaEntry } from '../config/menuFigmaMap'
 import type { MenuPlaygroundArgs } from './getDesignSpecs'
 
@@ -163,6 +164,86 @@ const toLayerCss = (menuKey: string, layer: LayerModel) => {
   return [`${className} {`, ...body, '}'].join('\n')
 }
 
+const visualizeProperty = (item: LayerProperty): ReactNode => {
+  if (item.property === 'Background' || item.property === 'Text') {
+    return (
+      <div style={{ display: 'grid', gap: 6 }}>
+        <div
+          style={{
+            width: '100%',
+            height: 34,
+            borderRadius: 8,
+            border: '1px solid #cbd5e1',
+            background: item.value,
+          }}
+        />
+        <div style={{ fontSize: 11, color: '#334155' }}>{item.value}</div>
+      </div>
+    )
+  }
+
+  if (item.property === 'Radius') {
+    const radius = Number.parseFloat(item.value) || 0
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: 34,
+          borderRadius: radius,
+          border: '1px solid #cbd5e1',
+          background: '#f8fafc',
+        }}
+      />
+    )
+  }
+
+  if (item.property === 'Font Size' || item.property === 'Font Weight') {
+    return (
+      <div
+        style={{
+          fontSize: item.property === 'Font Size' ? item.value : 14,
+          fontWeight: item.property === 'Font Weight' ? item.value : 500,
+          color: '#0f172a',
+        }}
+      >
+        Aa 샘플 텍스트
+      </div>
+    )
+  }
+
+  if (item.property === 'Padding') {
+    return (
+      <span
+        style={{
+          display: 'inline-block',
+          padding: item.value,
+          borderRadius: 8,
+          background: '#e2e8f0',
+          fontSize: 11,
+          color: '#0f172a',
+        }}
+      >
+        Padding
+      </span>
+    )
+  }
+
+  return (
+    <span
+      style={{
+        display: 'inline-block',
+        border: '1px solid #cbd5e1',
+        borderRadius: 999,
+        padding: '2px 8px',
+        fontSize: 11,
+        color: '#334155',
+      }}
+    >
+      {item.value}
+    </span>
+  )
+}
+
 const MenuPlayground = ({ menuKey, title, description, ...args }: MenuPlaygroundProps) => {
   const entry = getMenuFigmaEntry(menuKey)
   const [activeLayerId, setActiveLayerId] = useState<string>('')
@@ -295,6 +376,33 @@ const MenuPlayground = ({ menuKey, title, description, ...args }: MenuPlayground
                       ))}
                     </tbody>
                   </table>
+                </div>
+                <div
+                  style={{
+                    borderTop: '1px solid #e2e8f0',
+                    background: '#ffffff',
+                    padding: 10,
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
+                    gap: 8,
+                  }}
+                >
+                  {activeLayer.properties.map((item) => (
+                    <div
+                      key={`visual-${activeLayer.id}-${item.property}`}
+                      style={{
+                        border: '1px solid #e2e8f0',
+                        borderRadius: 8,
+                        padding: 8,
+                        background: '#f8fafc',
+                        display: 'grid',
+                        gap: 6,
+                      }}
+                    >
+                      <div style={{ fontSize: 11, color: '#64748b' }}>{item.property}</div>
+                      {visualizeProperty(item)}
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
