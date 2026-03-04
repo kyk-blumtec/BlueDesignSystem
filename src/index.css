@@ -1,3 +1,5 @@
+@import './tokens/foundation/variables.css';
+
 @tailwind base;
 
 @tailwind components;
@@ -5,4 +7,3 @@
 @tailwind utilities;
 
 /* You can add global styles below */
-

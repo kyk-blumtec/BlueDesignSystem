@@ -1,206 +1,162 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import FigmaEmbedPage from './FigmaEmbedPage'
+import MenuPlayground from './MenuPlayground'
+import { createDesignParameters } from './createDesignParameters'
 
-type SectionProps = {
-  title: string
-  description?: string
+const baseArgs = {
+  label: 'Preview',
+  paddingX: 16,
+  paddingY: 10,
+  radius: 8,
+  fontSize: 14,
+  fontWeight: 500,
+  backgroundColor: 'var(--color-primary-500)',
+  textColor: 'var(--color-neutral-0)',
 }
 
-const SectionPage = ({ title, description }: SectionProps) => (
-  <div style={{ padding: 16, border: '1px solid #e5e7eb', borderRadius: 8 }}>
-    <h3 style={{ margin: '0 0 8px', fontSize: 16 }}>{title}</h3>
-    <p style={{ margin: 0, color: '#4b5563' }}>
-      {description ?? 'Content will be connected to this menu item.'}
-    </p>
-  </div>
-)
-
-const FIGMA_BASE_URL =
-  'https://www.figma.com/design/ec2KdFeSwTGXsQaNySybLO/%EB%B8%94%EB%A3%A8%ED%8C%9C%EC%BD%94%EB%A6%AC%EC%95%84-%EB%94%94%EC%9E%90%EC%9D%B8%EC%8B%9C%EC%8A%A4%ED%85%9C'
-
-const figmaUrl = (nodeId: string) => `${FIGMA_BASE_URL}?node-id=${nodeId}&m=dev`
-
-const FIGMA_BUTTONS_URL = figmaUrl('2-9')
-const FIGMA_BUTTONS_LAYER_1_URL = figmaUrl('245-2274')
-const FIGMA_BUTTONS_LAYER_2_URL = figmaUrl('247-2855')
-const FIGMA_BUTTONS_LAYER_3_URL = figmaUrl('252-738')
-const FIGMA_BUTTONS_LAYER_4_URL = figmaUrl('252-801')
-const FIGMA_INPUT_URL = figmaUrl('3-2')
-const FIGMA_INPUT_LAYER_1_URL = figmaUrl('140-456')
-const FIGMA_MODAL_URL = figmaUrl('3-3')
-const FIGMA_MODAL_LAYER_1_URL = figmaUrl('516-2156')
-const FIGMA_MODAL_LAYER_2_URL = figmaUrl('516-1885')
-const FIGMA_MODAL_LAYER_3_URL = figmaUrl('516-1562')
-const FIGMA_CHECKBOX_URL = figmaUrl('36-74')
-const FIGMA_CHECKBOX_LAYER_1_URL = figmaUrl('147-297')
-const FIGMA_RADIOGROUP_URL = figmaUrl('4-481')
-const FIGMA_RADIOGROUP_LAYER_1_URL = figmaUrl('480-819')
-const FIGMA_PAGINATION_URL = figmaUrl('4-481')
-const FIGMA_PAGINATION_LAYER_1_URL = figmaUrl('512-2095')
-const FIGMA_TAB_URL = figmaUrl('3-5')
-const FIGMA_TAB_LAYER_1_URL = figmaUrl('589-3315')
-const FIGMA_TAB_LAYER_2_URL = figmaUrl('623-606')
-const FIGMA_TOOLTIP_URL = figmaUrl('3-7')
-const FIGMA_TOOLTIP_LAYER_1_URL = figmaUrl('382-1395')
-const FIGMA_TOOLTIP_LAYER_2_URL = figmaUrl('382-3104')
-const FIGMA_BADGE_TAG_URL = figmaUrl('3-8')
-const FIGMA_BADGE_TAG_LAYER_1_URL = figmaUrl('407-326')
-const FIGMA_BADGE_TAG_LAYER_2_URL = figmaUrl('407-1044')
-const FIGMA_BADGE_TAG_LAYER_3_URL = figmaUrl('412-1430')
-const FIGMA_BADGE_TAG_LAYER_4_URL = figmaUrl('431-1071')
-
-const meta: Meta<typeof SectionPage> = {
+const meta: Meta<typeof MenuPlayground> = {
   title: '2. Components',
-  component: SectionPage,
+  component: MenuPlayground,
   parameters: {
-    controls: { disable: true },
+    controls: { expanded: true },
+    docs: {
+      description: {
+        component:
+          'Components 메뉴별 Figma path/layers를 Design 탭에 연결하고, Controls 변경값을 JSON으로 복사할 수 있습니다.',
+      },
+    },
+  },
+  argTypes: {
+    paddingX: { control: { type: 'number', min: 0, max: 48, step: 1 } },
+    paddingY: { control: { type: 'number', min: 0, max: 32, step: 1 } },
+    radius: { control: { type: 'number', min: 0, max: 32, step: 1 } },
+    fontSize: { control: { type: 'number', min: 10, max: 32, step: 1 } },
+    fontWeight: { control: { type: 'number', min: 100, max: 900, step: 100 } },
+    backgroundColor: { control: 'text' },
+    textColor: { control: 'text' },
   },
 }
 
 export default meta
 
-type Story = StoryObj<typeof SectionPage>
+type Story = StoryObj<typeof MenuPlayground>
 
 export const Buttons: Story = {
   name: '2.1 Buttons',
-  render: () => (
-    <FigmaEmbedPage
-      title="Buttons"
-      description="Primary, secondary, and utility button patterns."
-      figmaUrl={FIGMA_BUTTONS_URL}
-      figmaFrames={[
-        { title: 'layers1', url: FIGMA_BUTTONS_LAYER_1_URL },
-        { title: 'layers2', url: FIGMA_BUTTONS_LAYER_2_URL },
-        { title: 'layers3', url: FIGMA_BUTTONS_LAYER_3_URL },
-        { title: 'layers4', url: FIGMA_BUTTONS_LAYER_4_URL },
-      ]}
-    />
-  ),
+  args: {
+    ...baseArgs,
+    menuKey: '2.1 Buttons',
+    title: 'Buttons',
+    description: 'Primary, secondary, and utility button patterns.',
+  },
+  parameters: { ...createDesignParameters('2.1 Buttons') },
 }
 
 export const Input: Story = {
   name: '2.2 Input',
-  render: () => (
-    <FigmaEmbedPage
-      title="Input"
-      description="Text fields, states, and validation rules."
-      figmaUrl={FIGMA_INPUT_URL}
-      figmaFrames={[{ title: 'layers1', url: FIGMA_INPUT_LAYER_1_URL }]}
-    />
-  ),
+  args: {
+    ...baseArgs,
+    menuKey: '2.2 Input',
+    title: 'Input',
+    description: 'Text fields, states, and validation patterns.',
+  },
+  parameters: { ...createDesignParameters('2.2 Input') },
 }
 
 export const Modal: Story = {
   name: '2.3 Modal',
-  render: () => (
-    <FigmaEmbedPage
-      title="Modal"
-      description="Dialog behaviors, sizes, and accessibility requirements."
-      figmaUrl={FIGMA_MODAL_URL}
-      figmaFrames={[
-        { title: 'layers1', url: FIGMA_MODAL_LAYER_1_URL },
-        { title: 'layers2', url: FIGMA_MODAL_LAYER_2_URL },
-        { title: 'layers3', url: FIGMA_MODAL_LAYER_3_URL },
-      ]}
-    />
-  ),
+  args: {
+    ...baseArgs,
+    menuKey: '2.3 Modal',
+    title: 'Modal',
+    description: 'Dialog layout and interaction patterns.',
+  },
+  parameters: { ...createDesignParameters('2.3 Modal') },
 }
 
 export const Checkbox: Story = {
   name: '2.4 Checkbox',
-  render: () => (
-    <FigmaEmbedPage
-      title="Checkbox"
-      description="Checkbox styles and grouping conventions."
-      figmaUrl={FIGMA_CHECKBOX_URL}
-      figmaFrames={[{ title: 'layers1', url: FIGMA_CHECKBOX_LAYER_1_URL }]}
-    />
-  ),
+  args: {
+    ...baseArgs,
+    menuKey: '2.4 Checkbox',
+    title: 'Checkbox',
+    description: 'Checkbox states and grouping patterns.',
+  },
+  parameters: { ...createDesignParameters('2.4 Checkbox') },
 }
 
 export const RadioGroup: Story = {
   name: '2.5 RadioGroup',
-  render: () => (
-    <FigmaEmbedPage
-      title="RadioGroup"
-      description="Radio inputs and grouping behaviors."
-      figmaUrl={FIGMA_RADIOGROUP_URL}
-      figmaFrames={[{ title: 'layers1', url: FIGMA_RADIOGROUP_LAYER_1_URL }]}
-    />
-  ),
+  args: {
+    ...baseArgs,
+    menuKey: '2.5 RadioGroup',
+    title: 'RadioGroup',
+    description: 'Radio option layout and selection states.',
+  },
+  parameters: { ...createDesignParameters('2.5 RadioGroup') },
 }
 
 export const Pagination: Story = {
   name: '2.6 Pagination',
-  render: () => (
-    <FigmaEmbedPage
-      title="Pagination"
-      description="Pagination patterns for lists and tables."
-      figmaUrl={FIGMA_PAGINATION_URL}
-      figmaFrames={[{ title: 'layers1', url: FIGMA_PAGINATION_LAYER_1_URL }]}
-    />
-  ),
+  args: {
+    ...baseArgs,
+    menuKey: '2.6 Pagination',
+    title: 'Pagination',
+    description: 'Pagination variants and interaction patterns.',
+  },
+  parameters: { ...createDesignParameters('2.6 Pagination') },
 }
 
 export const Navigation: Story = {
   name: '2.7 Navigation',
   args: {
+    ...baseArgs,
+    menuKey: '2.7 Navigation',
     title: 'Navigation',
-    description: 'Navigation systems, menus, and breadcrumb usage.',
+    description: 'Menus, breadcrumb, and navigation hierarchy.',
   },
+  parameters: { ...createDesignParameters('2.7 Navigation') },
 }
 
 export const Tab: Story = {
   name: '2.8 Tab',
-  render: () => (
-    <FigmaEmbedPage
-      title="Tab"
-      description="Tabs layout, states, and responsive rules."
-      figmaUrl={FIGMA_TAB_URL}
-      figmaFrames={[
-        { title: 'layers1', url: FIGMA_TAB_LAYER_1_URL },
-        { title: 'layers2', url: FIGMA_TAB_LAYER_2_URL },
-      ]}
-    />
-  ),
+  args: {
+    ...baseArgs,
+    menuKey: '2.8 Tab',
+    title: 'Tab',
+    description: 'Tabs and segmented navigation states.',
+  },
+  parameters: { ...createDesignParameters('2.8 Tab') },
 }
 
 export const Tooltip: Story = {
   name: '2.9 Tooltip',
-  render: () => (
-    <FigmaEmbedPage
-      title="Tooltip"
-      description="Tooltip trigger rules and positioning."
-      figmaUrl={FIGMA_TOOLTIP_URL}
-      figmaFrames={[
-        { title: 'layers1', url: FIGMA_TOOLTIP_LAYER_1_URL },
-        { title: 'layers2', url: FIGMA_TOOLTIP_LAYER_2_URL },
-      ]}
-    />
-  ),
+  args: {
+    ...baseArgs,
+    menuKey: '2.9 Tooltip',
+    title: 'Tooltip',
+    description: 'Tooltip trigger and placement variants.',
+  },
+  parameters: { ...createDesignParameters('2.9 Tooltip') },
 }
 
 export const BadgeAndTag: Story = {
   name: '2.10 Badge & Tag',
-  render: () => (
-    <FigmaEmbedPage
-      title="Badge & Tag"
-      description="Badge and tag styles, color usage, and states."
-      figmaUrl={FIGMA_BADGE_TAG_URL}
-      figmaFrames={[
-        { title: 'layers1', url: FIGMA_BADGE_TAG_LAYER_1_URL },
-        { title: 'layers2', url: FIGMA_BADGE_TAG_LAYER_2_URL },
-        { title: 'layers3', url: FIGMA_BADGE_TAG_LAYER_3_URL },
-        { title: 'layers4', url: FIGMA_BADGE_TAG_LAYER_4_URL },
-      ]}
-    />
-  ),
+  args: {
+    ...baseArgs,
+    menuKey: '2.10 Badge & Tag',
+    title: 'Badge & Tag',
+    description: 'Badge/tag colors, shapes, and states.',
+  },
+  parameters: { ...createDesignParameters('2.10 Badge & Tag') },
 }
 
 export const Card: Story = {
   name: '2.11 Card',
   args: {
+    ...baseArgs,
+    menuKey: '2.11 Card',
     title: 'Card',
-    description: 'Card layout guidance and content rules.',
+    description: 'Card layout and content composition patterns.',
   },
+  parameters: { ...createDesignParameters('2.11 Card') },
 }
