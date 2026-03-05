@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, CSSProperties } from 'react'
 import '../storybook-theme.css'
 
 export type LayerProperty = {
@@ -27,7 +27,7 @@ const visualize = (item: LayerProperty): ReactNode => {
     return <span style={{ fontSize: item.value }}>Aa</span>
   }
   if (css === 'font-weight') {
-    return <span style={{ fontWeight: item.value as any }}>Aa Sample</span>
+    return <span style={{ fontWeight: item.value as CSSProperties['fontWeight'] }}>Aa Sample</span>
   }
   if (css === 'box-shadow') {
     return (
@@ -53,11 +53,11 @@ type PropertyTableProps = {
 const PropertyTable = ({ properties, searchQuery }: PropertyTableProps) => {
   const filtered = searchQuery
     ? properties.filter((p) =>
-        [p.property, p.cssProperty, p.value, p.variable, p.token]
-          .join(' ')
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase())
-      )
+      [p.property, p.cssProperty, p.value, p.variable, p.token]
+        .join(' ')
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
+    )
     : properties
 
   if (filtered.length === 0) {

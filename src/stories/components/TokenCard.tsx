@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import type { ReactNode } from 'react'
 
 type TokenCardProps = {
     name: string
@@ -6,7 +7,7 @@ type TokenCardProps = {
     token: string
     description?: string
     /** Visual preview renderer */
-    preview?: React.ReactNode
+    preview?: ReactNode
 }
 
 const TokenCard = ({ name, variable, token, description, preview }: TokenCardProps) => {
