@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { LayerProperty } from './PropertyTable'
+import type { DesignSpecLayer } from './DesignSpecPage'
 
 type ExportFormat = 'json' | 'css' | 'scss' | 'ts'
 
@@ -7,14 +7,14 @@ type ExportPanelProps = {
     /** Identifier used for CSS class names (kebab-case) */
     componentName: string
     /** Layer-level property sets for grouped export */
-    layers: { label: string; properties: LayerProperty[] }[]
+    layers: DesignSpecLayer[]
 }
 
 const generateJson = (layers: ExportPanelProps['layers']) =>
     JSON.stringify(
         layers.map((l) => ({
             layer: l.label,
-            properties: l.properties.map((p) => ({
+            properties: l.tiles.flatMap((t) => t.properties).map((p) => ({
                 property: p.property,
                 cssProperty: p.cssProperty,
                 value: p.value,
@@ -30,18 +30,19 @@ const generateCss = (name: string, layers: ExportPanelProps['layers']) =>
     layers
         .map((l) => {
             const cls = `.${name}--${l.label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`
-            return [cls + ' {', ...l.properties.map((p) => `  ${p.cssProperty}: ${p.value};`), '}'].join(
-                '\n'
-            )
+            const props = l.tiles.flatMap((t) => t.properties)
+            return [cls + ' {', ...props.map((p) => `  ${p.cssProperty}: ${p.value};`), '}'].join('\n')
         })
         .join('\n\n')
 
 const generateScss = (name: string, layers: ExportPanelProps['layers']) => {
     const vars = new Map<string, string>()
     layers.forEach((l) =>
-        l.properties.forEach((p) => {
-            if (p.variable && p.variable !== 'n/a') vars.set(p.variable, p.value)
-        })
+        l.tiles.forEach((t) =>
+            t.properties.forEach((p) => {
+                if (p.variable && p.variable !== 'n/a') vars.set(p.variable, p.value)
+            })
+        )
     )
     const varBlock = Array.from(vars.entries())
         .map(([k, v]) => `$${k.replace(/^--/, '')}: ${v};`)
@@ -50,9 +51,10 @@ const generateScss = (name: string, layers: ExportPanelProps['layers']) => {
     const mixins = layers
         .map((l) => {
             const mixinName = `${name}-${l.label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`
+            const props = l.tiles.flatMap((t) => t.properties)
             return [
                 `@mixin ${mixinName} {`,
-                ...l.properties.map((p) => {
+                ...props.map((p) => {
                     const ref = p.variable && p.variable !== 'n/a' ? `$${p.variable.replace(/^--/, '')}` : p.value
                     return `  ${p.cssProperty}: ${ref};`
                 }),
@@ -67,7 +69,7 @@ const generateScss = (name: string, layers: ExportPanelProps['layers']) => {
 const generateTs = (name: string, layers: ExportPanelProps['layers']) => {
     const entries = layers.map((l) => {
         const key = l.label.replace(/[^a-zA-Z0-9]/g, '')
-        const props = l.properties.map(
+        const props = l.tiles.flatMap(t => t.properties).map(
             (p) =>
                 `    ${p.property.replace(/\s+/g, '')}: { css: '${p.cssProperty}', value: '${p.value}', variable: '${p.variable}', token: '${p.token}' },`
         )

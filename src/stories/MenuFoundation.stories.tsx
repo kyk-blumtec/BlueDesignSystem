@@ -13,6 +13,8 @@ const p = (
   token: string
 ): LayerProperty => ({ property, cssProperty, value, variable, token })
 
+const mapToTiles = (props: LayerProperty[]) => props.map(p => ({ label: p.property, properties: [p] }))
+
 /* ── Meta ── */
 const meta: Meta<typeof DesignSpecPage> = {
   title: '1. Foundation',
@@ -39,30 +41,30 @@ export const Colors: Story = {
     layers: [
       {
         label: 'Primary Palette',
-        properties: [
+        tiles: mapToTiles([
           p('Primary 50', 'background', '#eff6ff', '--color-primary-50', 'foundation.color.primary.50'),
           p('Primary 100', 'background', '#dbeafe', '--color-primary-100', 'foundation.color.primary.100'),
           p('Primary 500', 'background', '#3b82f6', '--color-primary-500', 'foundation.color.primary.500'),
           p('Primary 700', 'background', '#1d4ed8', '--color-primary-700', 'foundation.color.primary.700'),
-        ],
+        ]),
       },
       {
         label: 'Neutral Palette',
-        properties: [
+        tiles: mapToTiles([
           p('Neutral 0', 'background', '#ffffff', '--color-neutral-0', 'foundation.color.neutral.0'),
           p('Neutral 50', 'background', '#f8fafc', '--color-neutral-50', 'foundation.color.neutral.50'),
           p('Neutral 200', 'background', '#e2e8f0', '--color-neutral-200', 'foundation.color.neutral.200'),
           p('Neutral 700', 'background', '#334155', '--color-neutral-700', 'foundation.color.neutral.700'),
           p('Neutral 900', 'background', '#0f172a', '--color-neutral-900', 'foundation.color.neutral.900'),
-        ],
+        ]),
       },
       {
         label: 'Semantic Colors',
-        properties: [
+        tiles: mapToTiles([
           p('Success', 'background', '#16a34a', '--color-semantic-success', 'foundation.color.semantic.success'),
           p('Warning', 'background', '#f59e0b', '--color-semantic-warning', 'foundation.color.semantic.warning'),
           p('Danger', 'background', '#dc2626', '--color-semantic-danger', 'foundation.color.semantic.danger'),
-        ],
+        ]),
       },
     ],
   } satisfies DesignSpecPageProps,
@@ -83,35 +85,35 @@ export const Typography: Story = {
     layers: [
       {
         label: 'Font Family',
-        properties: [
+        tiles: mapToTiles([
           p('Base Font', 'font-family', "'Pretendard', 'Noto Sans KR', system-ui, sans-serif", '--font-family-base', 'foundation.typography.fontFamily.base'),
-        ],
+        ]),
       },
       {
         label: 'Font Size Scale',
-        properties: [
+        tiles: mapToTiles([
           p('XS (12px)', 'font-size', '12px', '--font-size-xs', 'foundation.typography.fontSize.xs'),
           p('SM (14px)', 'font-size', '14px', '--font-size-sm', 'foundation.typography.fontSize.sm'),
           p('MD (16px)', 'font-size', '16px', '--font-size-md', 'foundation.typography.fontSize.md'),
           p('LG (20px)', 'font-size', '20px', '--font-size-lg', 'foundation.typography.fontSize.lg'),
           p('XL (24px)', 'font-size', '24px', '--font-size-xl', 'foundation.typography.fontSize.xl'),
-        ],
+        ]),
       },
       {
         label: 'Font Weight',
-        properties: [
+        tiles: mapToTiles([
           p('Regular', 'font-weight', '400', '--font-weight-regular', 'foundation.typography.fontWeight.regular'),
           p('Medium', 'font-weight', '500', '--font-weight-medium', 'foundation.typography.fontWeight.medium'),
           p('Bold', 'font-weight', '700', '--font-weight-bold', 'foundation.typography.fontWeight.bold'),
-        ],
+        ]),
       },
       {
         label: 'Line Height',
-        properties: [
+        tiles: mapToTiles([
           p('Tight', 'line-height', '1.3', '--line-height-tight', 'foundation.typography.lineHeight.tight'),
           p('Normal', 'line-height', '1.5', '--line-height-normal', 'foundation.typography.lineHeight.normal'),
           p('Relaxed', 'line-height', '1.7', '--line-height-relaxed', 'foundation.typography.lineHeight.relaxed'),
-        ],
+        ]),
       },
     ],
   } satisfies DesignSpecPageProps,
@@ -131,18 +133,28 @@ export const Grid: Story = {
     layers: [
       {
         label: 'Desktop Grid',
-        properties: [
-          p('Columns', 'grid-template-columns', 'repeat(12, 1fr)', 'n/a', 'foundation.grid.columns.desktop'),
-          p('Gutter', 'column-gap', '24px', 'n/a', 'foundation.grid.gutter.desktop'),
-          p('Margin', 'padding-inline', '24px', 'n/a', 'foundation.grid.margin.desktop'),
+        tiles: [
+          {
+            label: 'Desktop Specs',
+            properties: [
+              p('Columns', 'grid-template-columns', 'repeat(12, 1fr)', 'n/a', 'foundation.grid.columns.desktop'),
+              p('Gutter', 'column-gap', '24px', 'n/a', 'foundation.grid.gutter.desktop'),
+              p('Margin', 'padding-inline', '24px', 'n/a', 'foundation.grid.margin.desktop'),
+            ]
+          }
         ],
       },
       {
         label: 'Tablet Grid',
-        properties: [
-          p('Columns', 'grid-template-columns', 'repeat(8, 1fr)', 'n/a', 'foundation.grid.columns.tablet'),
-          p('Gutter', 'column-gap', '16px', 'n/a', 'foundation.grid.gutter.tablet'),
-          p('Margin', 'padding-inline', '16px', 'n/a', 'foundation.grid.margin.tablet'),
+        tiles: [
+          {
+            label: 'Tablet Specs',
+            properties: [
+              p('Columns', 'grid-template-columns', 'repeat(8, 1fr)', 'n/a', 'foundation.grid.columns.tablet'),
+              p('Gutter', 'column-gap', '16px', 'n/a', 'foundation.grid.gutter.tablet'),
+              p('Margin', 'padding-inline', '16px', 'n/a', 'foundation.grid.margin.tablet'),
+            ]
+          }
         ],
       },
     ],
@@ -163,11 +175,16 @@ export const Icon: Story = {
     layers: [
       {
         label: 'Icon Specs',
-        properties: [
-          p('Default Size', 'font-size', '24px', 'n/a', 'foundation.icon.size.default'),
-          p('Small Size', 'font-size', '20px', 'n/a', 'foundation.icon.size.sm'),
-          p('Stroke Width', 'border-width', '1.5px', 'n/a', 'foundation.icon.strokeWidth'),
-          p('Default Color', 'color', 'var(--color-neutral-700)', '--color-neutral-700', 'foundation.color.neutral.700'),
+        tiles: [
+          {
+            label: 'Default & Small',
+            properties: [
+              p('Default Size', 'font-size', '24px', 'n/a', 'foundation.icon.size.default'),
+              p('Small Size', 'font-size', '20px', 'n/a', 'foundation.icon.size.sm'),
+              p('Stroke Width', 'border-width', '1.5px', 'n/a', 'foundation.icon.strokeWidth'),
+              p('Default Color', 'color', 'var(--color-neutral-700)', '--color-neutral-700', 'foundation.color.neutral.700'),
+            ]
+          }
         ],
       },
     ],
@@ -188,14 +205,14 @@ export const Radius: Story = {
     layers: [
       {
         label: 'Radius Scale',
-        properties: [
+        tiles: mapToTiles([
           p('None', 'border-radius', '0', '--radius-none', 'foundation.radius.none'),
           p('SM (4px)', 'border-radius', '4px', '--radius-sm', 'foundation.radius.sm'),
           p('MD (8px)', 'border-radius', '8px', '--radius-md', 'foundation.radius.md'),
           p('LG (12px)', 'border-radius', '12px', '--radius-lg', 'foundation.radius.lg'),
           p('XL (16px)', 'border-radius', '16px', '--radius-xl', 'foundation.radius.xl'),
           p('Full', 'border-radius', '9999px', '--radius-full', 'foundation.radius.full'),
-        ],
+        ]),
       },
     ],
   } satisfies DesignSpecPageProps,
@@ -215,12 +232,12 @@ export const Shadow: Story = {
     layers: [
       {
         label: 'Shadow Levels',
-        properties: [
+        tiles: mapToTiles([
           p('Level 1 (sm)', 'box-shadow', '0 1px 3px rgba(15,23,42,0.06)', 'n/a', 'foundation.shadow.sm'),
           p('Level 2 (md)', 'box-shadow', '0 4px 12px rgba(15,23,42,0.08)', 'n/a', 'foundation.shadow.md'),
           p('Level 3 (lg)', 'box-shadow', '0 8px 24px rgba(15,23,42,0.12)', 'n/a', 'foundation.shadow.lg'),
           p('Level 4 (xl)', 'box-shadow', '0 12px 28px rgba(15,23,42,0.2)', 'n/a', 'foundation.shadow.xl'),
-        ],
+        ]),
       },
     ],
   } satisfies DesignSpecPageProps,

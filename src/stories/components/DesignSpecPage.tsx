@@ -1,17 +1,26 @@
 import { useMemo, useState } from 'react'
-import type { CSSProperties, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { getMenuFigmaEntry } from '../../config/menuFigmaMap'
-import PropertyTable from './PropertyTable'
-import type { LayerProperty } from './PropertyTable'
+import VisualGrid from './VisualGrid'
+import type { TileData } from './VisualGrid'
 import ExportPanel from './ExportPanel'
 import FigmaPreview from './FigmaPreview'
 import '../storybook-theme.css'
 
 /* ── Types ── */
 
+export type LayerProperty = {
+    property: string
+    cssProperty: string
+    value: string
+    variable: string
+    token: string
+}
+
 export type DesignSpecLayer = {
     label: string
-    properties: LayerProperty[]
+    /** The collection of visual tiles for this layer/section */
+    tiles: TileData[]
 }
 
 export type DesignSpecPageProps = {
@@ -36,19 +45,6 @@ const toKebab = (v: string) =>
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '')
-
-/** Build preview style from layer properties */
-const previewStyle = (props: LayerProperty[]): CSSProperties => {
-    const style: CSSProperties = {
-        fontFamily: 'var(--ds-font-sans)',
-        lineHeight: 'var(--line-height-normal)',
-    }
-    props.forEach((p) => {
-        const camel = p.cssProperty.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase())
-            ; (style as Record<string, string>)[camel] = p.value
-    })
-    return style
-}
 
 /* ── Component ── */
 
@@ -75,11 +71,17 @@ const DesignSpecPage = ({
         ]
     }, [entry])
 
-    const allProperties = useMemo(
-        () => layers.flatMap((l) => l.properties),
+    const allTiles = useMemo(
+        () => layers.flatMap((l) => l.tiles),
         [layers]
     )
 
+    const allProperties = useMemo(
+        () => allTiles.flatMap((t) => t.properties),
+        [allTiles]
+    )
+
+    const totalTiles = allTiles.length
     const totalTokens = allProperties.length
 
     return (
@@ -94,6 +96,7 @@ const DesignSpecPage = ({
                 </p>
                 <div className="ds-hero__meta">
                     <span>📐 {layers.length} Layer{layers.length > 1 ? 's' : ''}</span>
+                    <span>🖼️ {totalTiles} Visual Tiles</span>
                     <span>🎯 {totalTokens} Properties</span>
                     <span>🔗 {figmaFrames.length} Figma Frame{figmaFrames.length > 1 ? 's' : ''}</span>
                 </div>
@@ -114,9 +117,9 @@ const DesignSpecPage = ({
             {/* ── Custom content slot ── */}
             {children}
 
-            {/* ── Layer Property Mapping ── */}
+            {/* ── Visual Tile Grid Mapping ── */}
             <div className="ds-section">
-                <div className="ds-section__title">Layer Properties & Token Mapping</div>
+                <div className="ds-section__title">Visual Design Tiles & Properties</div>
 
                 {/* Search */}
                 <div className="ds-search">
@@ -124,9 +127,9 @@ const DesignSpecPage = ({
                         className="ds-search__input"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        placeholder="Search properties, variables, tokens..."
+                        placeholder="Search elements, properties, variables, tokens..."
                     />
-                    <span className="ds-search__count">{totalTokens} properties</span>
+                    <span className="ds-search__count">{totalTiles} visual tiles</span>
                 </div>
 
                 {layers.map((layer) => {
@@ -137,7 +140,7 @@ const DesignSpecPage = ({
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                                     <span className="ds-layer__label">{layer.label}</span>
                                     <span style={{ fontSize: 11, color: 'var(--ds-text-muted)' }}>
-                                        {layer.properties.length} props
+                                        {layer.tiles.length} elements
                                     </span>
                                 </div>
                                 <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
@@ -155,22 +158,8 @@ const DesignSpecPage = ({
                             </div>
 
                             {isExpanded && (
-                                <div className="ds-layer__body">
-                                    {/* Visual preview */}
-                                    <div className="ds-preview-box">
-                                        <button type="button" style={previewStyle(layer.properties)}>
-                                            {layer.label}
-                                        </button>
-                                        <span className="ds-preview-box__label">
-                                            레이어 속성으로 렌더된 미리보기
-                                        </span>
-                                    </div>
-
-                                    {/* Property table */}
-                                    <PropertyTable
-                                        properties={layer.properties}
-                                        searchQuery={searchQuery}
-                                    />
+                                <div className="ds-layer__body" style={{ padding: '0 20px 20px' }}>
+                                    <VisualGrid tiles={layer.tiles} searchQuery={searchQuery} />
                                 </div>
                             )}
                         </div>
