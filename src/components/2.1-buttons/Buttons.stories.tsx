@@ -14,7 +14,7 @@ const FIGMA_LAYER_4_URL =
 
 
 const meta: Meta<typeof BlueButton> = {
-  title: '2. Components/2.1 Buttons/Buttons',
+  title: '2. Components/2.1 Buttons',
   component: BlueButton,
   parameters: {
     design: [
