@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/kyk-blumtec/BlueDesignSystem/issues"
   },
-  "homepage": "https://github.com/kyk-blumtec/BlueDesignSystem#readme",
+  "homepage": "https://blue-design-system.vercel.app",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
