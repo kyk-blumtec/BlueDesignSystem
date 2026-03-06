@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import DesignSpecPage from './components/DesignSpecPage'
 import type { DesignSpecPageProps } from './components/DesignSpecPage'
-import type { LayerProperty } from './components/PropertyTable'
+import type { LayerProperty } from './components/DesignSpecPage'
 import { createDesignParameters } from './createDesignParameters'
 
 /* ── Helper ── */
