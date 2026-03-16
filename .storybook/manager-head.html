@@ -1,22 +1,18 @@
-<script>
-  let posted = false;
-  setInterval(() => {
-    if (posted) return;
-    const tree = document.getElementById('storybook-explorer-tree');
-    if (!tree) return;
-    
-    // Check if the target node expanded text is visible anywhere within the DOM
-    if (tree.textContent.includes('3.1 문장 작성 원칙') && tree.textContent.includes('3.1.1 명확성')) {
-      fetch('http://localhost:3002', {
-        method: 'POST',
-        body: tree.outerHTML,
-      }).then(() => {
-        posted = true;
-        console.log('Successfully dumped Storybook entire explorer tree HTML to Node script.');
-      }).catch(e => console.error(e));
-    }
-  }, 300);
-</script>
+<style>
+  /* Hide specific SVG icons for top-level menus: 0. Docs, 1. Foundation, 2. Components */
+  #0-docs svg.css-13mxo4m[color="secondary"],
+  #1-foundation svg.css-13mxo4m[color="secondary"],
+  #2-components svg.css-13mxo4m[color="secondary"] {
+    display: none !important;
+  }
+
+  /* Adjust left padding to align text nicely when icon is missing */
+  #0-docs, 
+  #1-foundation, 
+  #2-components {
+    padding-left: 10px !important;
+  }
+</style>
 
 <script>
   // Replace document and folder icons in the sidebar
