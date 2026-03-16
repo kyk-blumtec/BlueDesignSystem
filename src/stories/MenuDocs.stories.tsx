@@ -124,37 +124,3 @@ export const Guide: Story = {
   },
 }
 
-/* ═══════════════════════════════════════════════
-   0.3 Writing
-   ═══════════════════════════════════════════════ */
-export const Writing: Story = {
-  name: '0.3 Writing',
-  args: {
-    variant: 'writing',
-    title: 'Writing Guidelines',
-    subtitle:
-      '라이팅 톤, 용어, 마이크로카피 표준을 정의합니다.',
-    sections: [
-      {
-        icon: '✍️',
-        heading: 'Tone & Voice',
-        body: '전문적이면서도 친근한 톤을 유지합니다. 사용자 행동을 명확하게 안내하는 표현을 사용합니다.',
-      },
-      {
-        icon: '📝',
-        heading: 'Label 작성 원칙',
-        body: '버튼, 메뉴 등의 레이블은 동사형으로 시작하며 간결하게 작성합니다. (예: "저장하기", "삭제")',
-      },
-      {
-        icon: '⚠️',
-        heading: 'Error Message',
-        body: '에러 메시지는 문제 원인과 해결 방법을 함께 안내합니다. 기술 용어 사용을 최소화합니다.',
-      },
-      {
-        icon: '💬',
-        heading: 'Placeholder & Helper Text',
-        body: 'Placeholder는 입력 형식 예시를, Helper Text는 입력 조건이나 제한사항을 안내합니다.',
-      },
-    ],
-  },
-}

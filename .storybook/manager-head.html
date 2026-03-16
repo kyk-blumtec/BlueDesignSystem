@@ -1,0 +1,47 @@
+<script>
+  let posted = false;
+  setInterval(() => {
+    if (posted) return;
+    const tree = document.getElementById('storybook-explorer-tree');
+    if (!tree) return;
+    
+    // Check if the target node expanded text is visible anywhere within the DOM
+    if (tree.textContent.includes('3.1 문장 작성 원칙') && tree.textContent.includes('3.1.1 명확성')) {
+      fetch('http://localhost:3002', {
+        method: 'POST',
+        body: tree.outerHTML,
+      }).then(() => {
+        posted = true;
+        console.log('Successfully dumped Storybook entire explorer tree HTML to Node script.');
+      }).catch(e => console.error(e));
+    }
+  }, 300);
+</script>
+
+<script>
+  // Replace document and folder icons in the sidebar
+  setInterval(() => {
+    // Replace document icons
+    const documentIcons = document.querySelectorAll('svg use[*|href="#icon--document"], svg use[href="#icon--document"]');
+    documentIcons.forEach(useEl => {
+      useEl.setAttribute('href', '#icon--bookmarkhollow');
+      useEl.setAttribute('xlink:href', '#icon--bookmarkhollow');
+      const svgEl = useEl.closest('svg');
+      if (svgEl) {
+        svgEl.setAttribute('class', 'css-1tr7j7n');
+      }
+    });
+
+    // Replace folder icons
+    const folderIcons = document.querySelectorAll('svg use[*|href="#icon--folder"], svg use[href="#icon--folder"]');
+    folderIcons.forEach(useEl => {
+      useEl.setAttribute('href', '#icon--component');
+      useEl.setAttribute('xlink:href', '#icon--component');
+      const svgEl = useEl.closest('svg');
+      if (svgEl) {
+        svgEl.setAttribute('class', 'css-13mxo4m');
+        svgEl.setAttribute('color', 'secondary');
+      }
+    });
+  }, 100);
+</script>

@@ -1,0 +1,115 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="3. UX-writing/3.1 문장 작성 원칙/3.1.5 접근성" />
+
+<style>
+  {`
+    h1 {
+      margin-bottom: 60px !important;
+    }
+    
+    .writing-guide-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      margin-bottom: 64px;
+      font-size: 14px;
+      table-layout: fixed;
+    }
+    .writing-guide-table th {
+      background-color: #0284c7; /* Sidebar blue color */
+      color: #ffffff !important;
+      font-weight: 700;
+      text-align: center;
+      padding: 12px 16px;
+      border-bottom: 2px solid #0369a1;
+      width: 50%;
+    }
+    .writing-guide-table td {
+      padding: 16px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
+      vertical-align: top;
+      font-size: 14px !important;
+    }
+    .writing-guide-table td div,
+    .writing-guide-table td span {
+      font-size: inherit !important;
+    }
+    .text-good { color: #16a34a; font-weight: 600; }
+    .text-bad { color: #dc2626; font-weight: 600; }
+    
+    .guide-list {
+      margin-top: 8px;
+      margin-bottom: 0px;
+      padding-left: 20px;
+      color: #334155;
+      line-height: 1.6;
+    }
+    .guide-list li {
+      margin-bottom: 4px;
+    }
+  `}
+</style>
+
+# 접근성
+
+### 사용자 관점
+<ul className="guide-list">
+  <li>남녀노소, 디지털 취약자, 다양한 문화적 배경 사용자 등 누구나 이해할 수 있도록 쉽고 직관적인 문장을 사용합니다.</li>
+  <li>약어, 전문 용어, 모호한 표현은 최소화하고, 화면 리더기·인지적 이해를 고려한 문장 구조로 작성합니다.</li>
+  <li>서비스를 만드는 내부 관점이나 기술 용어가 아닌, 사용자가 이해하는 언어와 상황 중심으로 표현합니다.</li>
+  <li>기능 중심 설명 대신, 사용자가 ‘무엇을 얻고 해결할 수 있는지’를 알려주는 방식으로 작성합니다.</li>
+  <li>아이콘만으로 의미를 전달하지 않습니다.</li>
+</ul>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>쉽고 직관적으로 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 파일 다운로드(버튼명)</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 여기를 클릭하세요(버튼명)</div>
+      </td>
+    </tr>
+    <tr>
+      <td>기술 용어가 아닌 사용자가 이해하는 언어로 표현합니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 네트워크 연결이 끊어졌습니다.</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 세션이 종료되었습니다.</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 행동 중심
+<ul className="guide-list">
+  <li>문장이 사용자의 ‘행동’을 즉시 유도할 수 있도록 명령형·행동형 문구를 사용합니다.</li>
+  <li>버튼·알림·설명 문구 모두 ‘사용자가 지금 무엇을 할 수 있는지’를 명확히 알려야 합니다.</li>
+</ul>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>현재 상황에 맞는 사용자의 다음 행동을 알려줍니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 인터넷 연결을 확인해주세요.</div>
+        <div style={{ marginBottom: '8px' }}><span className="text-bad">[X]</span> 서비스와의 연결이 지연되고 있습니다.</div>
+        <div><span className="text-good">[O]</span> 지금은 이용할 수 없습니다. 잠시 후 다시 시도해주세요.</div>
+        <div><span className="text-bad">[X]</span> 데이터 오류로 인해 서비스 이용이 제한됩니다.</div>
+      </td>
+    </tr>
+  </tbody>
+</table>

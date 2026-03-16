@@ -1,0 +1,143 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="3. UX-writing/3.1 문장 작성 원칙/3.1.4 보편성" />
+
+<style>
+  {`
+    h1 {
+      margin-bottom: 60px !important;
+    }
+    
+    .writing-guide-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      margin-bottom: 64px;
+      font-size: 14px;
+      table-layout: fixed;
+    }
+    .writing-guide-table th {
+      background-color: #0284c7; /* Sidebar blue color */
+      color: #ffffff !important;
+      font-weight: 700;
+      text-align: center;
+      padding: 12px 16px;
+      border-bottom: 2px solid #0369a1;
+      width: 50%;
+    }
+    .writing-guide-table td {
+      padding: 16px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
+      vertical-align: top;
+      font-size: 14px !important;
+    }
+    .writing-guide-table td div,
+    .writing-guide-table td span {
+      font-size: inherit !important;
+    }
+    .text-good { color: #16a34a; font-weight: 600; }
+    .text-bad { color: #dc2626; font-weight: 600; }
+    
+    .guide-list {
+      margin-top: 8px;
+      margin-bottom: 0px;
+      padding-left: 20px;
+      color: #334155;
+      line-height: 1.6;
+    }
+    .guide-list li {
+      margin-bottom: 4px;
+    }
+  `}
+</style>
+
+# 보편성
+
+### 쉬운 문장과 단어 사용
+<ul className="guide-list">
+  <li>누구나 이해하기 쉬운 보편적인 표현을 씁니다.</li>
+</ul>
+
+### 바른 높임말의 사용
+<ul className="guide-list">
+  <li>‘하십시오체’ 또는 ‘해요체‘를 상황에 따라 적절히 사용합니다.</li>
+  <li>높임말의 대상을 명확하게 하여 중복으로 높임말을 쓰지 않습니다.</li>
+</ul>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>높임말의 대상이 아니면 높임말을 쓰지 않습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 가입이 승인되었습니다.</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 가입이 승인되셨습니다.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>중복으로 높임말을 쓰지 않습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 계속 이용하려면 아래 변경된 약관 내용을 확인하고 약관 변경에 동의 하셔야 합니다.</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 계속 이용하시려면 아래 변경된 약관 내용을 확인하시고 약관 변경에 동의 하셔야 합니다.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>비속어나 은어를 사용하지 않습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 프로필에 사진을 첨부할 때 앱이 종료되는 문제 수정</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 프로필에 사진 첨부하면 튕기는 현상 수정</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 사람이 하는 동작은 능동형 사용
+<ul className="guide-list">
+  <li>사람이 하는 동작은 능동형으로 써야 사용자 관점에서 더 자연스럽습니다. 영어를 번역할 때는 원문에 피동형이 쓰였더라도 능동형으로 번역합니다.</li>
+</ul>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>사람이 주체인 동작은 능동형으로 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 동의를 체크해야 다음 단계로 진행합니다.</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 동의가 체크되어야 다음 단계로 진행합니다.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>앱이나 프로그램에서 제공하는 기능을 표현할 때는 피동형을 쓸 수 있습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 업데이트 완료를 누르면 앱이 다시 시작됩니다.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>이중 피동형을 쓰지 않습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 이미 적립된 경우 포인트 적립버튼이 비활성으로 보입니다.</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 이미 적립된 경우 포인트 적립버튼이 비활성으로 보여집니다.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>사동형을 주의해서 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 원하는 위치로 그림을 이동할 수 있습니다.</div>
+        <div style={{ marginBottom: '8px' }}><span className="text-bad">[X]</span> 원하는 위치로 그림을 이동시킬 수 있습니다.</div>
+        <div><span className="text-good">[O]</span> 효과를 극대화하는</div>
+        <div><span className="text-bad">[X]</span> 효과를 극대화 시켜주는</div>
+      </td>
+    </tr>
+  </tbody>
+</table>

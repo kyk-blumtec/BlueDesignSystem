@@ -1,0 +1,286 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="3. UX-writing/3.1 문장 작성 원칙/3.1.3 일관성" />
+
+<style>
+  {`
+    h1 {
+      margin-bottom: 60px !important;
+    }
+    
+    .writing-guide-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      margin-bottom: 64px;
+      font-size: 14px;
+      table-layout: fixed;
+    }
+    .writing-guide-table th {
+      background-color: #0284c7; /* Sidebar blue color */
+      color: #ffffff !important;
+      font-weight: 700;
+      text-align: center;
+      padding: 12px 16px;
+      border-bottom: 2px solid #0369a1;
+      width: 50%;
+    }
+    .writing-guide-table td {
+      padding: 16px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
+      vertical-align: top;
+      font-size: 14px !important;
+    }
+    .writing-guide-table td div,
+    .writing-guide-table td span {
+      font-size: inherit !important;
+    }
+    .text-good { color: #16a34a; font-weight: 600; }
+    .text-bad { color: #dc2626; font-weight: 600; }
+    
+    .guide-list {
+      margin-top: 8px;
+      margin-bottom: 0px;
+      padding-left: 20px;
+      color: #334155;
+      line-height: 1.6;
+    }
+    .guide-list li {
+      margin-bottom: 4px;
+    }
+  `}
+</style>
+
+# 일관성
+
+### 일관된 UI 텍스트 사용
+<ul className="guide-list">
+  <li>서비스 전체에서 용어·문장 구조·톤을 통일해 사용자가 혼란 없이 서비스 흐름을 파악할 수 있도록 합니다.</li>
+  <li>같은 기능이나 조건에 대해 다른 표현을 사용하지 않으며, 브랜드 가이드와 일관성을 유지합니다.</li>
+  <li>동일한 음절의 한글과 외국어를 번갈아 사용하지 않습니다.</li>
+</ul>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>같은 서비스 및 기능에 동일한 단어를 사용합니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 로그인, 비밀번호</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 로그인·로그인하기, 비밀번호·패스워드 혼용</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 올바른 외래어 표기
+<ul className="guide-list">
+  <li>자세한 내용은 국립국어원(http://www.korean.go.kr)에서 찾기 마당 &gt; 어문 규정 &gt; 외래어표기법 &gt; 규정보기를 참고합니다.</li>
+  <li>개별 단어 별로 맞는 표기법을 알고 싶다면 용례집(국립국어원 &gt; 찾기 마당 &gt; 어문 규정 &gt; 외래어표기법 &gt; 용례찾기)을 찾아봅니다.</li>
+</ul>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>표준어로 적용된 외래어를 사용합니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 섬네일</div>
+        <div style={{ marginBottom: '8px' }}><span className="text-bad">[X]</span> 썸네일</div>
+        <div><span className="text-good">[O]</span> 콘텐츠</div>
+        <div style={{ marginBottom: '8px' }}><span className="text-bad">[X]</span> 컨텐츠</div>
+        <div><span className="text-good">[O]</span> 메시지</div>
+        <div><span className="text-bad">[X]</span> 메세지</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### 한글 맞춤법의 띄어쓰기 규정 준수
+<ul className="guide-list">
+  <li>서비스의 버튼이나 메뉴, 탭 이름 등은 메시지를 표시할 공간이 부족할 경우 붙여 쓸 수 있습니다. 전문용어도 단어별로 띄어 쓰는 것이 원칙이지만 붙여 쓸 수 있습니다.</li>
+  <li>단, 서비스 전체에서 용어 별로 띄어 쓰기 일관성을 유지하는 것이 중요합니다.</li>
+</ul>
+
+#### ① 띄어쓰기 기본 원칙
+<p style={{ marginTop: '8px', marginBottom: '0px', color: '#334155' }}>
+  한글 맞춤법은 “문장의 각 단어는 띄어 씀을 원칙으로 한다.” 라고 규정되어 있습니다. 
+</p>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>문장의 각 단어는 띄어 씀을 원칙으로 합니다, 단, 조사는 접미사 범주에 포함시키기 어려운 것이어서 단어로 다루고 있으나, 그 앞의 단어에 붙여 쓴다는 예외 규정이 있습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 작은 창 사전</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 작은창 사전</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        ‘작은아버지’와 같이 두 단어 이상이 합쳐져 한 단어로 취급되는 경우에는 붙여 씁니다.<br />
+        이 때 한 단어로 취급되는지는 표준국어대사전 등재 여부로 판단합니다.
+      </td>
+      <td>
+        <div><span className="text-good">[O]</span> 지난주(단, 이번 주는 ‘이번 주’로 띄어 씀)</div>
+        <div style={{ marginBottom: '8px' }}><span className="text-bad">[X]</span> 지난 주</div>
+        <div><span className="text-good">[O]</span> 찾아본 의약품</div>
+        <div><span className="text-bad">[X]</span> 찾아 본 의약품</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### ② 조사와 접사는 앞 말에 붙여 씁니다.
+<p style={{ marginTop: '8px', marginBottom: '0px', color: '#334155', lineHeight: '1.6' }}>
+  띄어쓰기 원칙에 따르면 조사도 단어이므로 띄어 써야 하지만, 다른 단어에 비해 독립성이 떨어지기 때문에 예외적으로 앞 말에 붙여 쓰도록 합니다.<br />
+  접사는 단독으로 쓰이지 않고 항상 다른 단어에 붙어 새로운 단어를 구성합니다.
+</p>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>조사는 앞 말에 붙여 씁니다. (~까지, ~뿐만)</td>
+      <td>
+        <div><span className="text-good">[O]</span> 최대 100개까지 등록할 수 있습니다.</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 최대 100개 까지 등록할 수 있습니다.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>조사가 여러 개가 오더라도 모두 앞 말에 붙여 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 서울에서부터 부산까지의</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 서울에서 부터 부산까지의</div>
+      </td>
+    </tr>
+    <tr>
+      <td>‘~이다’는 서술격 조사로 앞 말에 붙여 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 가입 후 첫 주문이라면</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 가입 후 첫주문 이라면</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### ③ 접사는 앞 말에 붙여 씁니다.
+<p style={{ marginTop: '8px', marginBottom: '0px', color: '#334155' }}>
+  접사는 단독으로 쓰이지 않고 항상 다른 단어에 붙어 새로운 단어를 구성합니다.
+</p>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>‘~하다’가 접사로 쓰일 때는 앞 말에 붙여 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 동의합니다. 제출합니다. 가능합니다. 주문정보를 확인하면</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 동의 합니다. 제출 합니다. 가능 합니다. 주문정보를 확인 하면</div>
+      </td>
+    </tr>
+    <tr>
+      <td>‘~되다’도 앞 말에 붙여 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 개인정보는 암호화되어</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 개인정보는 암호화 되어</div>
+      </td>
+    </tr>
+    <tr>
+      <td>‘~별’은 앞 말에 붙여 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 쇼핑몰별, 가격대별, 스펙별</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 쇼핑몰 별, 가격대 별, 스펙 별</div>
+      </td>
+    </tr>
+    <tr>
+      <td>‘~순’은 앞 말에 붙여 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 추천순, 인기순, 최신순, 가나다순</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 추천 순, 인기 순, 최신 순, 가나다 순</div>
+      </td>
+    </tr>
+    <tr>
+      <td>특정 형태를 나타내는 ‘~형’은 앞 말에 붙여 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 달력형, 선택형, 입력형</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 달력 형, 선택 형, 입력 형</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### ④ 의존명사는 앞 말과 띄어 씁니다.
+<p style={{ marginTop: '8px', marginBottom: '16px', color: '#334155' }}>
+  의존명사는 앞 말과 띄어 씁니다. UI 텍스트에서 자주 나오는 의존명사에는 ‘님’, ‘중’, ‘시’ 등이 있습니다.
+</p>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        사람의 성이나 이름 다음에 쓰여 그 사람을 높여 부를 때 ‘님’은 의존명사로 앞 말과 띄어 씁니다.
+      </td>
+      <td>
+        <div><span className="text-good">[O]</span> 홍길동 님</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 홍길동님</div>
+      </td>
+    </tr>
+    <tr>
+      <td>‘~하고 있는’을 의미하는 ‘중’은 의존명사로 앞 말과 띄어 씁니다</td>
+      <td>
+        <div><span className="text-good">[O]</span> 주문내역 삭제 시 (‘주문내역을 삭제하면’으로 순화해서 사용하는 것을 권고함)</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 주문내역 삭제시</div>
+      </td>
+    </tr>
+    <tr>
+      <td>열거하는 말이 복수임을 나타낼 때 쓰는 ‘등’은 의존명사로 앞 말과 띄어 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 입금, 수금, 실적 조회 등의 업무는</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 입금, 수금, 실적 조회등의 업무는</div>
+      </td>
+    </tr>
+    <tr>
+      <td>단위를 나타내는 명사도 의존명사로 앞 말과 띄어 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 한 개, 두 개</div>
+        <div style={{ marginBottom: '8px' }}><span className="text-bad">[X]</span> 한개, 두개</div>
+        <div><span className="text-good">[O]</span> 1개, 2개 (숫자는 붙여 씁니다.)</div>
+        <div><span className="text-bad">[X]</span> 1 개, 2 개</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
