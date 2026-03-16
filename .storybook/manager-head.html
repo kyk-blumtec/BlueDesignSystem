@@ -1,66 +1,31 @@
 <style>
-  /* Fallback: Hide specific SVG icons for top-level menus */
-  #0-docs svg.css-13mxo4m,
-  #1-foundation svg.css-13mxo4m,
-  #2-components svg.css-13mxo4m,
-  #0-docs svg[color="secondary"],
-  #1-foundation svg[color="secondary"],
-  #2-components svg[color="secondary"] {
+  /* CSS Fallback */
+  #0-docs svg.css-13mxo4m, 
+  #1-foundation svg.css-13mxo4m, 
+  #2-components svg.css-13mxo4m {
     display: none !important;
   }
-
-  /* Adjust left padding for alignment */
   #0-docs, #1-foundation, #2-components {
     padding-left: 10px !important;
   }
 </style>
 
 <script>
-  function applySidebarTweaks() {
-    // 1. HIDE icons for specific IDs
+  console.log('ANTIGRAVITY_SIDEBAR_CLEANER_V7_LOADED');
+  function hideSpecificIcons() {
     ['0-docs', '1-foundation', '2-components'].forEach(id => {
       const btn = document.getElementById(id);
       if (btn) {
-        // Find and hide component icons
-        const targetIcons = btn.querySelectorAll('svg.css-13mxo4m, svg[color="secondary"], svg:has(use[href*="icon--component"])');
-        targetIcons.forEach(icon => {
-          icon.style.display = 'none';
-          icon.style.opacity = '0';
-          icon.style.width = '0';
+        // Find the icon that is NOT the first child's SVG (expansion arrow)
+        const svgs = Array.from(btn.querySelectorAll('svg'));
+        svgs.forEach(svg => {
+          // If it's the blue component icon (secondary color or specific class)
+          if (svg.classList.contains('css-13mxo4m') || svg.getAttribute('color') === 'secondary') {
+            svg.style.display = 'none';
+          }
         });
       }
     });
-
-    // 2. REPLACE general document icons
-    const documentIcons = document.querySelectorAll('svg use[*|href="#icon--document"], svg use[href="#icon--document"]');
-    documentIcons.forEach(useEl => {
-      const svgEl = useEl.closest('svg');
-      if (!svgEl) return;
-      
-      const btn = svgEl.closest('button.sidebar-item');
-      if (btn && ['0-docs', '1-foundation', '2-components'].includes(btn.id)) return; // Already handled
-
-      useEl.setAttribute('href', '#icon--bookmarkhollow');
-      useEl.setAttribute('xlink:href', '#icon--bookmarkhollow');
-      svgEl.setAttribute('class', 'css-1tr7j7n');
-    });
-
-    // 3. REPLACE general folder icons
-    const folderIcons = document.querySelectorAll('svg use[*|href="#icon--folder"], svg use[href="#icon--folder"]');
-    folderIcons.forEach(useEl => {
-      const svgEl = useEl.closest('svg');
-      if (!svgEl) return;
-
-      const btn = svgEl.closest('button.sidebar-item');
-      if (btn && ['0-docs', '1-foundation', '2-components'].includes(btn.id)) return; // Already handled
-
-      useEl.setAttribute('href', '#icon--component');
-      useEl.setAttribute('xlink:href', '#icon--component');
-      svgEl.setAttribute('class', 'css-13mxo4m');
-      svgEl.setAttribute('color', 'secondary');
-    });
   }
-
-  // Run on interval to handle Storybook dynamic loading
-  setInterval(applySidebarTweaks, 100);
+  setInterval(hideSpecificIcons, 100);
 </script>
