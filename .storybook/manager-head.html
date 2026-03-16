@@ -1,43 +1,66 @@
 <style>
-  /* Hide specific SVG icons for top-level menus: 0. Docs, 1. Foundation, 2. Components */
-  #0-docs svg.css-13mxo4m[color="secondary"],
-  #1-foundation svg.css-13mxo4m[color="secondary"],
-  #2-components svg.css-13mxo4m[color="secondary"] {
+  /* Fallback: Hide specific SVG icons for top-level menus */
+  #0-docs svg.css-13mxo4m,
+  #1-foundation svg.css-13mxo4m,
+  #2-components svg.css-13mxo4m,
+  #0-docs svg[color="secondary"],
+  #1-foundation svg[color="secondary"],
+  #2-components svg[color="secondary"] {
     display: none !important;
   }
 
-  /* Adjust left padding to align text nicely when icon is missing */
-  #0-docs, 
-  #1-foundation, 
-  #2-components {
+  /* Adjust left padding for alignment */
+  #0-docs, #1-foundation, #2-components {
     padding-left: 10px !important;
   }
 </style>
 
 <script>
-  // Replace document and folder icons in the sidebar
-  setInterval(() => {
-    // Replace document icons
-    const documentIcons = document.querySelectorAll('svg use[*|href="#icon--document"], svg use[href="#icon--document"]');
-    documentIcons.forEach(useEl => {
-      useEl.setAttribute('href', '#icon--bookmarkhollow');
-      useEl.setAttribute('xlink:href', '#icon--bookmarkhollow');
-      const svgEl = useEl.closest('svg');
-      if (svgEl) {
-        svgEl.setAttribute('class', 'css-1tr7j7n');
+  function applySidebarTweaks() {
+    // 1. HIDE icons for specific IDs
+    ['0-docs', '1-foundation', '2-components'].forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) {
+        // Find and hide component icons
+        const targetIcons = btn.querySelectorAll('svg.css-13mxo4m, svg[color="secondary"], svg:has(use[href*="icon--component"])');
+        targetIcons.forEach(icon => {
+          icon.style.display = 'none';
+          icon.style.opacity = '0';
+          icon.style.width = '0';
+        });
       }
     });
 
-    // Replace folder icons
+    // 2. REPLACE general document icons
+    const documentIcons = document.querySelectorAll('svg use[*|href="#icon--document"], svg use[href="#icon--document"]');
+    documentIcons.forEach(useEl => {
+      const svgEl = useEl.closest('svg');
+      if (!svgEl) return;
+      
+      const btn = svgEl.closest('button.sidebar-item');
+      if (btn && ['0-docs', '1-foundation', '2-components'].includes(btn.id)) return; // Already handled
+
+      useEl.setAttribute('href', '#icon--bookmarkhollow');
+      useEl.setAttribute('xlink:href', '#icon--bookmarkhollow');
+      svgEl.setAttribute('class', 'css-1tr7j7n');
+    });
+
+    // 3. REPLACE general folder icons
     const folderIcons = document.querySelectorAll('svg use[*|href="#icon--folder"], svg use[href="#icon--folder"]');
     folderIcons.forEach(useEl => {
+      const svgEl = useEl.closest('svg');
+      if (!svgEl) return;
+
+      const btn = svgEl.closest('button.sidebar-item');
+      if (btn && ['0-docs', '1-foundation', '2-components'].includes(btn.id)) return; // Already handled
+
       useEl.setAttribute('href', '#icon--component');
       useEl.setAttribute('xlink:href', '#icon--component');
-      const svgEl = useEl.closest('svg');
-      if (svgEl) {
-        svgEl.setAttribute('class', 'css-13mxo4m');
-        svgEl.setAttribute('color', 'secondary');
-      }
+      svgEl.setAttribute('class', 'css-13mxo4m');
+      svgEl.setAttribute('color', 'secondary');
     });
-  }, 100);
+  }
+
+  // Run on interval to handle Storybook dynamic loading
+  setInterval(applySidebarTweaks, 100);
 </script>
