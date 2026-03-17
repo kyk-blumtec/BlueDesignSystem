@@ -32,6 +32,14 @@ import { Meta } from '@storybook/blocks';
       vertical-align: top;
       font-size: 14px !important;
     }
+    .col-classification {
+      background-color: #f8fafc !important;
+      font-weight: 600;
+      width: 15% !important;
+      text-align: center;
+      vertical-align: middle !important;
+      border-right: 1px solid #e2e8f0;
+    }
     .writing-guide-table td div,
     .writing-guide-table td span {
       font-size: inherit !important;
@@ -186,9 +194,9 @@ import { Meta } from '@storybook/blocks';
   </tbody>
 </table>
 
-#### ③ 접사는 앞 말에 붙여 씁니다.
+#### ③ 가운뎃점
 <p style={{ marginTop: '8px', marginBottom: '0px', color: '#334155' }}>
-  접사는 단독으로 쓰이지 않고 항상 다른 단어에 붙어 새로운 단어를 구성합니다.
+  가운뎃점(·)은 열거된 여러 단위가 대등하거나 밀접한 관계임을 나타냅니다. 
 </p>
 
 <table className="writing-guide-table">
@@ -200,46 +208,31 @@ import { Meta } from '@storybook/blocks';
   </thead>
   <tbody>
     <tr>
-      <td>‘~하다’가 접사로 쓰일 때는 앞 말에 붙여 씁니다.</td>
+      <td>쉼표로 열거된 어구를 다시 여러 단위로 나눌 때 씁니다.</td>
       <td>
-        <div><span className="text-good">[O]</span> 동의합니다. 제출합니다. 가능합니다. 주문정보를 확인하면</div>
-        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 동의 합니다. 제출 합니다. 가능 합니다. 주문정보를 확인 하면</div>
+        <div><span className="text-good">[O]</span> 의약품 카테고리는 급여주사제·비급여주사제·수액제제로 구성되어 있다.</div>
       </td>
     </tr>
     <tr>
-      <td>‘~되다’도 앞 말에 붙여 씁니다.</td>
+      <td>특정한 의미가 있는 날을 나타내는 숫자에 씁니다.</td>
       <td>
-        <div><span className="text-good">[O]</span> 개인정보는 암호화되어</div>
-        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 개인정보는 암호화 되어</div>
+        <div><span className="text-good">[O]</span> 3·1 운동, 8·15 광복</div>
       </td>
     </tr>
     <tr>
-      <td>‘~별’은 앞 말에 붙여 씁니다.</td>
+      <td>같은 계열의 단어 사이에 씁니다.</td>
       <td>
-        <div><span className="text-good">[O]</span> 쇼핑몰별, 가격대별, 스펙별</div>
-        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 쇼핑몰 별, 가격대 별, 스펙 별</div>
-      </td>
-    </tr>
-    <tr>
-      <td>‘~순’은 앞 말에 붙여 씁니다.</td>
-      <td>
-        <div><span className="text-good">[O]</span> 추천순, 인기순, 최신순, 가나다순</div>
-        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 추천 순, 인기 순, 최신 순, 가나다 순</div>
-      </td>
-    </tr>
-    <tr>
-      <td>특정 형태를 나타내는 ‘~형’은 앞 말에 붙여 씁니다.</td>
-      <td>
-        <div><span className="text-good">[O]</span> 달력형, 선택형, 입력형</div>
-        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 달력 형, 선택 형, 입력 형</div>
+        <div><span className="text-good">[O]</span> 의약품·백신류</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 의약품/백신류</div>
       </td>
     </tr>
   </tbody>
 </table>
 
-#### ④ 의존명사는 앞 말과 띄어 씁니다.
-<p style={{ marginTop: '8px', marginBottom: '16px', color: '#334155' }}>
-  의존명사는 앞 말과 띄어 씁니다. UI 텍스트에서 자주 나오는 의존명사에는 ‘님’, ‘중’, ‘시’ 등이 있습니다.
+#### ④ 빗금
+<p style={{ marginTop: '8px', marginBottom: '0px', color: '#334155', lineHeight: '1.6' }}>
+  빗금(/)은 대응, 대립되거나 대등한 것을 함께 보일 때, 분수를 나타내거나 수식에서 나누기를 할 때 사용합니다.<br />
+  가운뎃점의 용법과 혼동하지 않도록 주의해야 합니다. 
 </p>
 
 <table className="writing-guide-table">
@@ -251,35 +244,284 @@ import { Meta } from '@storybook/blocks';
   </thead>
   <tbody>
     <tr>
+      <td>대응, 대립되거나 대등한 것을 함께 보이는 단어와 구, 절 사이에 씁니다.</td>
       <td>
-        사람의 성이나 이름 다음에 쓰여 그 사람을 높여 부를 때 ‘님’은 의존명사로 앞 말과 띄어 씁니다.
-      </td>
-      <td>
-        <div><span className="text-good">[O]</span> 홍길동 님</div>
-        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 홍길동님</div>
+        <div><span className="text-good">[O]</span> 클라이언트/서버, On/Off 스위치, 읽기/쓰기</div>
       </td>
     </tr>
     <tr>
-      <td>‘~하고 있는’을 의미하는 ‘중’은 의존명사로 앞 말과 띄어 씁니다</td>
+      <td>분수를 나타낼 때 씁니다.</td>
       <td>
-        <div><span className="text-good">[O]</span> 주문내역 삭제 시 (‘주문내역을 삭제하면’으로 순화해서 사용하는 것을 권고함)</div>
-        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 주문내역 삭제시</div>
+        <div><span className="text-good">[O]</span> 3/4 분기</div>
       </td>
     </tr>
     <tr>
-      <td>열거하는 말이 복수임을 나타낼 때 쓰는 ‘등’은 의존명사로 앞 말과 띄어 씁니다.</td>
+      <td>전체 대비 얼마인지 나타낼 때는 ‘얼마/전체’의 형태로 씁니다.</td>
       <td>
-        <div><span className="text-good">[O]</span> 입금, 수금, 실적 조회 등의 업무는</div>
-        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 입금, 수금, 실적 조회등의 업무는</div>
+        <div><span className="text-good">[O]</span> 0자 입력/최대 500자</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 최대 500자/0자 입력</div>
       </td>
     </tr>
     <tr>
-      <td>단위를 나타내는 명사도 의존명사로 앞 말과 띄어 씁니다.</td>
+      <td>빗금 앞뒤에 빈칸을 두지 않습니다.</td>
       <td>
-        <div><span className="text-good">[O]</span> 한 개, 두 개</div>
-        <div style={{ marginBottom: '8px' }}><span className="text-bad">[X]</span> 한개, 두개</div>
-        <div><span className="text-good">[O]</span> 1개, 2개 (숫자는 붙여 씁니다.)</div>
-        <div><span className="text-bad">[X]</span> 1 개, 2 개</div>
+        <div><span className="text-good">[O]</span> 검색결과 1 ~ 12/209건</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 검색결과 1 ~ 12 / 209건</div>
+      </td>
+    </tr>
+    <tr>
+      <td>단순히 ‘또는’의 의미로는 사용하지 않습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> PC에서 구매 또는 대여한</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> PC에서 구매/대여한</div>
+      </td>
+    </tr>
+    <tr>
+      <td>아라비아 숫자만으로 날짜를 표기하는 데 사용하지 않습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 12월 25일</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 12/25</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### ⑤ 괄호
+<p style={{ marginTop: '8px', marginBottom: '0px', color: '#334155', lineHeight: '1.6' }}>
+  괄호(( ))는 부연 설명을 덧붙이거나 약어를 풀어 쓸 때 사용합니다. UI 텍스트를 쓸 때는 되도록 괄호를 쓰지 않습니다.<br />
+  보통 괄호 안에는 몰라도 상관 없는 내용을 적으므로 꼭 필요한 내용은 괄호 없이 쓰고, 몰라도 되는 내용은 과감하게 생략합니다.
+</p>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>반드시 읽어야 하는 중요한 내용은 괄호 안에 적지 않습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 전화 또는 이메일로 방문 일정을 안내드립니다.</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 유선(또는 이메일)으로 일정을 확인합니다.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        괄호 앞에는 빈칸을 두지 않으며, 괄호 안의 내용이 앞 문장과 긴밀한 관계에 있을 때는 
+        두 문장의 마침표를 묶어 괄호 밖에 하나만 찍습니다.
+      </td>
+      <td>
+        <div><span className="text-good">[O]</span> 비밀번호를 다시 작성해주세요 (영문(대문자포함), 숫자, 특수문자 조합).</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 기본 검색의 결과 범위를 줄이고자 할 때 사용한다. (상세 검색의 기능이다.)</div>
+      </td>
+    </tr>
+    <tr>
+      <td>괄호 안에 추가 설명을 쓸 때는 되도록 빨리 참고 내용을 파악할 수 있게 짧은 어구로 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 기본 검색의 결과 범위를 줄하고자 할 때 사용한다(상세 검색).</div>
+      </td>
+    </tr>
+    <tr>
+      <td>괄호 안 내용이 앞 문장과 긴밀한 관계가 아닐 때는 마침표를 각각 따로 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 제출하신 첨부파일은 등록일로부터 7일이 지나면 자동 삭제됩니다. (회원가입 승인 보류 시에도 등록일 7일 후 자동 삭제되며, 재승인 요청 시 재등록이 필요합니다.)</div>
+      </td>
+    </tr>
+    <tr>
+      <td>괄호 뒤에 오는 조사는 괄호 앞에 있는 명사와 호응합니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 메일에서 2개 이상의 메일 주소(메일함)를 사용할 때</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 메일에서 2개 이상 메일주소(메일함)을 사용하는 경우</div>
+      </td>
+    </tr>
+    <tr>
+      <td>괄호를 두 개 이상 연달아 쓰지 않습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 20개 항목(19.3MB) 이동 중…</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 20개 항목(19.3MB) (이동 중)</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### ⑥ 대괄호, 꺾은 괄호
+<p style={{ marginTop: '8px', marginBottom: '0px', color: '#334155', lineHeight: '1.6' }}>
+  대괄호([ ])는 메뉴 이름과 창 이름, 버튼 등의 UI 텍스트를 구별하는 서식을 따로 지정할 수 없을 때 사용합니다.<br />
+  꺾은(< >) 괄호는 주로 제목을 나타내거나 강조할 때 씁니다.
+</p>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th style={{ width: '15%' }}>구분</th>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowSpan="2" className="col-classification">대괄호</td>
+      <td>메뉴 이름과 창 이름, 버튼 등의 UI 텍스트를 구별하는 서식을 따로 지정할 수 없을 때 대괄호를 사용합니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> [다음] 버튼을 눌러주세요.</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> ‘다음’ 버튼을 눌러 주세요.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>메시지나 공지사항에 말머리를 달 때도 사용합니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> [오픈] 새로운 앱이 오픈되었습니다.</div>
+        <div style={{ marginTop: '8px' }}><span className="text-good">[O]</span> [안내] 편리하게 공유를 할 수 있습니다.</div>
+      </td>
+    </tr>
+    <tr>
+      <td className="col-classification">꺾은 괄호</td>
+      <td>메뉴를 열거할 때 씁니다. 괄호 앞뒤로 한 칸씩 띄어 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> [마이페이지 > 내 정보 관리]에서 수정하실 수 있습니다.</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### ⑦ 따옴표
+<p style={{ marginTop: '8px', marginBottom: '0px', color: '#334155', lineHeight: '1.6' }}>
+  큰따옴표(“ ”)는 글 가운데 직접 대화를 표시하거나 남의 말을 인용할 때 씁니다.<br />
+  작은따옴표(‘ ’)는 인용한 말 가운데 다시 인용한 말이 들어 있을 때나 강조해서 표현해야 할 때 씁니다. 
+</p>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th style={{ width: '15%' }}>구분</th>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowSpan="2" className="col-classification">큰따옴표</td>
+      <td>UI 텍스트임을 표시하는 용도로는 사용하지 않습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> [앱 다운로드] 버튼을 누르세요.</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> “앱 다운로드” 버튼을 누르세요.</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> ‘앱 다운로드’ 버튼을 누르세요.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>단순히 특정 단어나 어구를 강조하기 위해 사용하지 않습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> https://bluepharmkorea.co.kr에서 현재 위치 정보를 사용하고자 합니다.</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> https://bluepharmkorea.co.kr’에서 현재 위치 정보를 사용하고자 합니다.</div>
+      </td>
+    </tr>
+    <tr>
+      <td rowSpan="2" className="col-classification">작은따옴표</td>
+      <td>작은따옴표를 사용할 때 띄어쓰기는 작은따옴표로 묶은 말 다음에 오는 문장 성분에 따라 달라집니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> ‘-’ 없이 입력하세요. (‘없이’는 부사이므로 띄어 씀)</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> ‘-’없이 입력하세요.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>검색어로 입력된 키워드를 강조해서 표시하려면 작은따옴표를 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> ‘위고비’ 검색결과 총 3건</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> “위고비” 검색결과 총 3건</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### ⑧ 쌍점
+<p style={{ marginTop: '8px', marginBottom: '0px', color: '#334155' }}>
+  쌍점(:)은 항목 별 설명을 기술할 때 씁니다. 쌍점을 사용할 때 쌍점 앞은 붙여 쓰고 쌍점 뒤는 한 칸 띄어 씁니다. 
+</p>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>쌍점을 쓸 때는 띄어쓰기에 주의합니다</td>
+      <td>
+        <div><span className="text-good">[O]</span> 아이디: bluemtec</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 아이디 : bluemtec</div>
+      </td>
+    </tr>
+    <tr>
+      <td>시간을 표시하거나 둘 이상을 대비해서 쓸 때는 빈칸 없이 모두 붙여 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 오전 10:20</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 오전 10 : 20</div>
+        <div style={{ marginTop: '8px' }}><span className="text-good">[O]</span> 1:1 온라인 상담</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 1 : 1 온라인 상담</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### ⑨ 물결표
+<p style={{ marginTop: '8px', marginBottom: '0px', color: '#334155' }}>
+  물결표(~)는 얼마에서 얼마까지라는 뜻으로 범위를 나타낼 때 씁니다. 물결표는 앞뒤에 빈칸을 넣어 한 칸씩 띄어 씁니다. 
+</p>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>물결표의 앞과 뒤에 오는 단어 또는 표현의 형태는 반드시 동일해야 합니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 월요일 ~ 금요일</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 월~금요일</div>
+      </td>
+    </tr>
+    <tr>
+      <td>특별한 의미 없이 물결표를 남발하여 쓰지 않습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 이벤트에 당첨되려면?</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 이벤트에 당첨되려면~?</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### ⑩ 물음표와 느낌표
+<p style={{ marginTop: '8px', marginBottom: '0px', color: '#334155' }}>
+  물음표(?)는 물음을 나타낼 때, 느낌표(!)는 감탄이나 놀람, 명령 등 강한 느낌을 나타낼 때 씁니다. 꼭 필요한 경우에만 쓰도록 합니다. 
+</p>
+
+<table className="writing-guide-table">
+  <thead>
+    <tr>
+      <th>상세설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>물음표와 마침표, 느낌표와 마침표는 함께 사용하지 않습니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 이벤트에 참여해주세요!</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 이벤트에 참여해주세요!.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>물음표와 느낌표는 문장 끝에 한 번만 씁니다.</td>
+      <td>
+        <div><span className="text-good">[O]</span> 이벤트 공유하기!</div>
+        <div style={{ marginTop: '8px' }}><span className="text-bad">[X]</span> 이벤트 공유하기!!!</div>
       </td>
     </tr>
   </tbody>
